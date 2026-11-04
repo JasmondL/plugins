@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 # Figure it out
 
-In Hermes, read [the Hermes adapter](../../docs/harness/claude-code.md) once per session before you follow this skill. It maps the Cursor names in pstack skills to Hermes.
+In Hermes, read the Hermes adapter once per session before you follow this skill. It maps the Cursor names in pstack skills to Hermes. Read it with `read_file` at `/Users/I564554/.hermes/skills/pstack/docs/harness/claude-code.md`; `skill_view` cannot serve files outside the skill directory.
 
 When the task matches no playbook, design one. The deliverable before any code is the workflow itself: a sequence of phases that scales rigor to the task, runs the scientific method, and leaves a decision trail a human can audit after stepping away.
 

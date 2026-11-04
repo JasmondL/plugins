@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 # Create a formal verification skill
 
-In Hermes, read [the Hermes adapter](../../docs/harness/claude-code.md) once per session before you follow this skill. It maps the Cursor names in pstack skills to Hermes.
+In Hermes, read the Hermes adapter once per session before you follow this skill. It maps the Cursor names in pstack skills to Hermes. Read it with `read_file` at `/Users/I564554/.hermes/skills/pstack/docs/harness/claude-code.md`; `skill_view` cannot serve files outside the skill directory.
 
 A test checks the cases that someone thought to write. Formal verification checks every case in a stated scope: every order of steps in a model, every input up to a bound, or every input. This skill finds the part of the repo where that matters most, verifies one property of it, and leaves a project-local skill that lets the next agent check a change against that property. Write that skill for an agent who reads it cold, mid-change, and has never seen your work. The user must be able to trust the result and act on it without learning the verification language.
 

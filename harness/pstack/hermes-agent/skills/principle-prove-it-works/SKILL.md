@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 # Prove It Works
 
-In Hermes, read [the Hermes adapter](../../docs/harness/claude-code.md) once per session before you follow this skill. It maps the Cursor names in pstack skills to Hermes.
+In Hermes, read the Hermes adapter once per session before you follow this skill. It maps the Cursor names in pstack skills to Hermes. Read it with `read_file` at `/Users/I564554/.hermes/skills/pstack/docs/harness/claude-code.md`; `skill_view` cannot serve files outside the skill directory.
 
 Verify every task output by checking the real thing directly. Do not infer from proxies, self-reports, or "it compiles."
 

@@ -5,7 +5,7 @@ description: Configure which models pstack uses per role and at what reasoning b
 
 # Setup pstack
 
-In Hermes, read [the Hermes adapter](../../docs/harness/claude-code.md) once per session before you follow this skill. It maps the Cursor names in pstack skills to Hermes.
+In Hermes, read the Hermes adapter once per session before you follow this skill. It maps the Cursor names in pstack skills to Hermes. Read it with `read_file` at `/Users/I564554/.hermes/skills/pstack/docs/harness/claude-code.md`; `skill_view` cannot serve files outside the skill directory.
 
 Write `~/.cursor/rules/pstack-models.mdc`, an always-applied rule that sets pstack's model per role.
 
