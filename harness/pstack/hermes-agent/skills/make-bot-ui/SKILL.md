@@ -8,7 +8,9 @@ disable-model-invocation: true
 ---
 # How to make a bot UI
 
-In Hermes, read the Hermes adapter once per session before you follow this skill. It maps the Cursor names in pstack skills to Hermes. Read it with `read_file` at `/Users/I564554/.hermes/skills/pstack/docs/harness/claude-code.md`; `skill_view` cannot serve files outside the skill directory.
+In Hermes, read the Hermes adapter once per session before you follow this skill. It maps the Cursor names in pstack skills to Hermes. Read it with `read_file` at `../../docs/harness/claude-code.md` (relative to this skill's directory); `skill_view` cannot serve files outside the skill directory.
+
+**Hermes note.** The webhook-wake half targets Cursor's automation routines (`update_state` target `routine`, the `api2.cursor.sh/automations/webhook` host, `X-Automation-Key`). Skipped in Hermes: creating the routine and the `[routine]` wake, because Hermes has no Cursor Automations. The Hermes equivalent wake path is a webhook subscription (see the `webhook-subscriptions` skill). The local-server and Tailscale hosting half is portable and unchanged.
 
 Build a page the user clicks. A server on this computer POSTs JSON to a webhook routine. The bot wakes with that JSON. Keep the sender key on the server. Do not put the sender key in the browser, in chat, or in this skill.
 
@@ -36,7 +38,7 @@ Tell the user to do this:
 4. Copy the webhook URL. The user may paste the URL in chat.
 5. Copy the sender key. The user must not paste the sender key in chat.
 
-The URL looks like `https://api2.cursor.sh/automations/webhook/<id>` with no query string. Copy the URL from the routine. Do not guess the id.
+The URL host is provider-specific (Cursor uses `api2.cursor.sh/automations/webhook/<id>`). Copy the URL from the routine. Do not guess the id.
 
 ## Request the sender key
 

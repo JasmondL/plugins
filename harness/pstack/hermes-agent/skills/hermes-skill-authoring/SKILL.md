@@ -96,7 +96,7 @@ Secrets and settings:
 └── .bundled_manifest        # origin hashes of seeded bundled skills
 ```
 
-Category directories may be symlinks. On this machine `autonomous-ai-agents`, `devops`, `github`, `mlops`, and `software-development` under `~/.hermes/skills/` link into `/Users/I564554/j/dot/skills/` (a git repo, jlmq-repo). A skill write lands in the link target and adds untracked files to that repo. Check `readlink` before assuming a write stays inside `~/.hermes/skills/`.
+Category directories under `~/.hermes/skills/` may be symlinks into a git repo. A skill write then lands in the link target and adds untracked files to that repo. Check `readlink` before assuming a write stays inside `~/.hermes/skills/`.
 
 Precedence for duplicate names: `project → local (~/.hermes/skills/) → skills.create_dir → external_dirs`; the shadowed copy is logged. Project-local skills live in `<project-root>/.hermes/skills/` or `<project-root>/.agents/skills/` and only load from trusted repos (`hermes skills trust`); every project skill is security-scanned at scan time, and a `dangerous` verdict quarantines it. `skills.create_dir` (config.yaml) redirects where `skill_manage` create writes new skills; existing skills are still modified in place wherever they live.
 
