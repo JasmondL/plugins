@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 # Swarm
 
-In Hermes, read [the Hermes adapter](../../docs/harness/claude-code.md) once per session before you follow this skill. It maps the Cursor names in pstack skills to Hermes.
+In Hermes, read the Hermes adapter once per session before you follow this skill. It maps the Cursor names in pstack skills to Hermes. Read it with `read_file` at `../../docs/harness/claude-code.md` (relative to this skill's directory); `skill_view` cannot serve files outside the skill directory.
 
 ## Start
 
@@ -21,14 +21,14 @@ Open a todolist with one entry per phase before launching anything.
 
 1. State the done predicate and the artifact or report the swarm must return.
 2. Choose the shape. Partition into slices, race N workers on identical briefs, or mix both. For a race or mixed shape, declare `first pass`, `rank all`, or `best-of` before spawning.
-3. Pick the worker model from the `swarm workers` line in `~/.cursor/rules/pstack-models.mdc`. If the rule or that line is missing, use `grok-4.7-xhigh-fast`. For `auto` or `inherit-parent`, omit `model` so the workers run on the parent model. If the Task tool rejects a slug, use the default and say so. If it rejects the default, use the closest valid slug of the same family from its error message. For a model race, name each arm's model up front. Pick each subagent's reasoning level and fast or standard speed for the job, per the Subagents section of the **poteto-mode** skill.
+3. Pick the worker model from the `swarm workers` line in `~/.hermes/SOUL.md` (advisory: which family to pin). Every `delegate_task` child inherits the session model, so pin `delegation.model`/`delegation.provider`/`delegation.reasoning_effort` in `~/.hermes/config.yaml` to change it (drop `-fast`). For a model race, one fan-out can't mix models per arm: name each arm's intended model up front and re-pin between arms, or note the arms share one inherited model. Pick each subagent's reasoning level for the job, per the Subagents section of the **poteto-mode** skill.
 4. Give each worker its own writable output when it writes. When workers verify or measure commits, each brief names the exact SHAs. A measurement brief also names the method (sample count, what one sample is, order). The worker records both in its result.
 
 ## Phase B: Fan out
 
-Spawn all N workers in one message with `subagent_type: generalPurpose`, `environment: "cloud"`, `run_in_background: true`, and the step 3 model, left unset for `auto` or `inherit-parent`. Use `environment: "local"` only when the worker needs access to something on the user's computer.
+Spawn all N workers as one `tasks` array in a single `delegate_task` call (each entry one worker; extras run in parallel, background by default). Children inherit the session's tools and run locally; for worktree isolation set `delegation.worktree_isolation: true`.
 
-When a worker must start from a non-default pushed branch, pass `cloud_base_branch`.
+When a worker must start from a non-default branch, name the branch in its brief (Hermes has no `cloud_base_branch` field).
 
 Every brief stands alone. Include the goal, scope, exact slice or race arm, how to verify, and what to report. Reports use `PASS`, `ISSUES`, or `BLOCKED` with evidence. A worker that can prove a defect reports `ISSUES` and lists every issue it can prove, not only the first.
 
